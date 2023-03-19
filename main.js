@@ -1,3 +1,8 @@
+noseX = 0;
+noseY = 0;
+leftWristX = 0;
+rightWristX = 0;
+
 function setup()
 {
     video = createCapture(VIDEO);
@@ -13,6 +18,10 @@ function setup()
 function draw()
 {
     background('grey');
+    fill('#fc03c6');
+    stroke('#fc03c6');
+    square(noseX, noseY, difference);
+    document.getElementById("square_side").innerHTML = "Width and Height of the square will be" + difference + "px";
 }
 
 function modelLoaded()
@@ -26,5 +35,15 @@ function gotPoses(results)
     {
         console.log(results);
         console.log("working");
+        noseX = results[0].pose.nose.x;
+        noseY = results[0].pose.nose.y;
+        console.log("noseX = " + noseX + "noseY = " + noseY);
+
+        leftWristX = results[0].pose.leftWrist.x;
+        rightWristX = results[0].pose.rightWrist.x;
+        difference = floor(leftWrist - rightWrist);
+        console.log("leftWrist = " + leftWristX + "rightWrist" + rightWristX + "difference = " + difference);
+        
     }
 }
+
